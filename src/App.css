@@ -1,0 +1,104 @@
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #bebab0; 
+}
+
+
+.app-heading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #4CAF50;
+}
+
+.url-input {
+  width:550px;
+  height: 30px; 
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: #4CAF50;
+ 
+}
+.url-input:focus {
+  border: 2px solid green;       
+  box-shadow: 0 0 5px green;    
+  outline: none;                
+}
+
+
+.send-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+}
+
+.send-button:disabled {
+  background-color: #9E9E9E;
+  cursor: not-allowed;
+}
+
+
+.error-message {
+  color: red;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+
+.result-card {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+
+.result-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+.result-image {
+  max-width: 200px;
+  margin-top: 12px;
+  display: block;
+  border-radius: 4px;
+}
+
+
+.result-description {
+  margin-top: 12px;
+  font-size: 16px;
+  color: #333;
+}
+
+
+result-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fffefc; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  border: 1px solid #e0e0e0; 
+  transition: transform 0.2s;
+}
+
+.result-card:hover {
+  transform: translateY(-3px); 
+}
