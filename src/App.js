@@ -47,13 +47,12 @@ function App() {
         type="url"
         value={url}
         placeholder="https://example.com"
-        onChange={(e) => setUrl(e.target.value)}
-
-        // onBlurCapture={()=>fetchOGData(url)}
-        // onBlur={() => fetchOGData(url)}  
+        onChange={(e) => setUrl(e.target.value)} 
         onPaste={(e) => {
+          e.preventDefault();
           const pastedValue = e.clipboardData.getData("text");
           setUrl(pastedValue);
+          fetchOGData(pastedValue);
           setTimeout(() => fetchOGData(pastedValue), 0); 
         }}
         className="url-input"
