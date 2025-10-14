@@ -1,5 +1,3 @@
-
-
 import './App.css';
 import { useState } from 'react';
 import ApiService from './service/ApiService';
@@ -51,8 +49,8 @@ function App() {
         placeholder="https://example.com"
         onChange={(e) => setUrl(e.target.value)}
 
-        onBlurCapture={()=>fetchOGData(url)}
-        onBlur={() => fetchOGData(url)}  
+        // onBlurCapture={()=>fetchOGData(url)}
+        // onBlur={() => fetchOGData(url)}  
         onPaste={(e) => {
           const pastedValue = e.clipboardData.getData("text");
           setUrl(pastedValue);
@@ -90,4 +88,3 @@ function App() {
 }
 
 export default App;
-
