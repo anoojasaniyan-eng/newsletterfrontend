@@ -21,6 +21,15 @@ const ApiService = {
       throw error; 
     }
   },
+  getAllUrls: async () => {
+    try {
+      const response = await api.get('Url/GetAllUrlMetadata');
+      return response.data; 
+    } catch (error) {
+      console.error('Error fetching all URLs:', error);
+      throw error; 
+    }
+  },
 };
 
 export default ApiService;
