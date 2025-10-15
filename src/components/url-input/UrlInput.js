@@ -30,7 +30,7 @@ const UrlInput = ({ onSuccess }) => {
     try {
       const data = await ApiService.getOpenGraphData(inputUrl);
       setResult(data);
-      if (onSuccess) onSuccess();  // Refresh list on App.js
+      if (onSuccess) onSuccess(); 
     } catch (err) {
       console.error("Error fetching OG data:", err);
       setError("Unable to fetch Open Graph data from backend.");
