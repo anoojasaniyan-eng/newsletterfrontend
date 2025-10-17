@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import "./UrlList.css";
 
@@ -7,7 +6,6 @@ const UrlList = ({ urls }) => {
   if (!urls || urls.length === 0) {
     return <p>No URLs saved yet.</p>;
   }
-
   return (
     <div className="url-list">
       {urls.map((item) => (
@@ -22,9 +20,13 @@ const UrlList = ({ urls }) => {
           )}
           <div className="url-card-content">
             <h4 className="url-card-title">{item.title || "Untitled"}</h4>
-            <a href={item.url} target="_blank" rel="noopener noreferrer" className="url-card-link">
+
+             <a href={item.url} target="_blank" rel="noopener noreferrer" className="url-card-link">
               {item.url}
             </a>
+            <div className="url-card-description">
+              {item.description || "No description available."}
+            </div>
           </div>
         </div>
       ))}

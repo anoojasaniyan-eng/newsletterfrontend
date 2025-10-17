@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import ApiService from "../../service/ApiService";
 import "./UrlInput.css";
 
-const UrlInput = ({ onSuccess }) => {
+const UrlInput = ({ onSaveSuccess }) => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  // const [isUrlAdded,setIsUrlAdded] = useState("");
+
+
+ 
+
 
   const isValidUrl = (s) => {
     try {
@@ -17,7 +22,9 @@ const UrlInput = ({ onSuccess }) => {
     }
   };
 
-  const fetchOGData = async (inputUrl) => {
+
+ 
+  const fetchOGData = async (inputUrl, save = false) => {
     setError("");
     setResult(null);
 
@@ -28,9 +35,9 @@ const UrlInput = ({ onSuccess }) => {
 
     setLoading(true);
     try {
-      const data = await ApiService.getOpenGraphData(inputUrl);
+    
+      const data = await ApiService.getOpenGraphData(inputUrl, save);
       setResult(data);
-      if (onSuccess) onSuccess(); 
     } catch (err) {
       console.error("Error fetching OG data:", err);
       setError("Unable to fetch Open Graph data from backend.");
@@ -39,9 +46,48 @@ const UrlInput = ({ onSuccess }) => {
     }
   };
 
+ 
+ const handleSave = async () => {
+  if (!result) return;
+
+  const addUrlRequestData = {
+    title: result.title || "",
+    url: result.url || "",
+    description: result.description || "",
+    image: result.image || "",
+  };
+
+  try {
+    const response = await ApiService.addUrlMetaData(addUrlRequestData);
+
+    console.log("API response:", response); // ✅ Debug check
+
+    if (response && response.success) {
+      alert("URL saved successfully!");
+      if (onSaveSuccess) onSaveSuccess(result);
+      setUrl("");
+      setResult(null);
+    } else {
+      alert("Failed to save the URL. Please check your backend response.");
+    }
+  } catch (err) {
+    console.error("Error saving URL:", err);
+    setError("Failed to save URL to database.");
+  }
+};
+
+  
+  const handleCancel = () => {
+    setUrl("");
+    setResult(null);
+    setError("");
+
+  };
+
   return (
     <div className="url-input-container">
-      <h3 className="app-heading">Paste your link</h3>
+      <h3 className="app-heading">Paste a link to preview its details</h3>
+      <p className="app-subtext">Preview the link before saving it.</p>
 
       <input
         type="url"
@@ -52,12 +98,12 @@ const UrlInput = ({ onSuccess }) => {
           e.preventDefault();
           const pastedValue = e.clipboardData.getData("text");
           setUrl(pastedValue);
-          fetchOGData(pastedValue);
+          fetchOGData(pastedValue); 
         }}
         className="url-input"
       />
 
-      {loading && <div className="loading-message">Loading...</div>}
+      {loading && <div className="loading-message">Loading preview...</div>}
       {error && <div className="error-message">{error}</div>}
 
       {result && (
@@ -78,10 +124,20 @@ const UrlInput = ({ onSuccess }) => {
           <p className="result-description">
             <strong>Description:</strong> {result.description || "(no description)"}
           </p>
+
+          <div className="action-buttons">
+            <button className="save-button" onClick={handleSave}>
+              Save
+            </button>
+            <button className="cancel-button" onClick={handleCancel}>
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>
   );
 };
+
 
 export default UrlInput;
