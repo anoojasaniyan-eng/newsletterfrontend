@@ -7,12 +7,8 @@ const UrlInput = ({ onSaveSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
-  // const [isUrlAdded,setIsUrlAdded] = useState("");
-
-
- 
-
-
+  const [inputUrl, setInputUrl] = useState("");
+  
   const isValidUrl = (s) => {
     try {
       new URL(s);
@@ -21,7 +17,6 @@ const UrlInput = ({ onSaveSuccess }) => {
       return false;
     }
   };
-
 
  
   const fetchOGData = async (inputUrl, save = false) => {
@@ -32,10 +27,10 @@ const UrlInput = ({ onSaveSuccess }) => {
       setError("Please paste a valid URL");
       return;
     }
+    setInputUrl(inputUrl);
 
     setLoading(true);
     try {
-    
       const data = await ApiService.getOpenGraphData(inputUrl, save);
       setResult(data);
     } catch (err) {
@@ -51,18 +46,15 @@ const UrlInput = ({ onSaveSuccess }) => {
   if (!result) return;
 
   const addUrlRequestData = {
-    title: result.title || "",
-    url: result.url || "",
-    description: result.description || "",
-    image: result.image || "",
+    title: result.title,
+    url: inputUrl,
+    description: result.description,
+    image: result.image,
   };
 
   try {
-    const response = await ApiService.addUrlMetaData(addUrlRequestData);
-
-    console.log("API response:", response); // ✅ Debug check
-
-    if (response && response.success) {
+    const isUrlAdded = await ApiService.addUrlMetaData(addUrlRequestData);
+    if (isUrlAdded && isUrlAdded.success) {
       alert("URL saved successfully!");
       if (onSaveSuccess) onSaveSuccess(result);
       setUrl("");
@@ -89,7 +81,7 @@ const UrlInput = ({ onSaveSuccess }) => {
       <h3 className="app-heading">Paste a link to preview its details</h3>
       <p className="app-subtext">Preview the link before saving it.</p>
 
-      <input
+      <input 
         type="url"
         value={url}
         placeholder="https://example.com"

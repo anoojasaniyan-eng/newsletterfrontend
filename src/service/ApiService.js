@@ -19,15 +19,16 @@ const ApiService = {
     );
     return response.data;
   },
- addUrlMetaData : async (data) => {
-  try {
-    const response = await api.post('/Url/AddMetadata', data);
-    return response.data;
-  } catch (error) {
-    console.error('Error while posting URL metadata:', error);
-    throw error;
-  }
- },
+
+  addUrlMetaData : async (data) => {
+    try {
+      const response = await api.post("Url/AddUrlMetadata", data);
+      return response.data;
+    } catch (error) {
+      console.error('Error while posting URL metadata:', error);
+      throw error;
+    }
+  },
   
 
 
