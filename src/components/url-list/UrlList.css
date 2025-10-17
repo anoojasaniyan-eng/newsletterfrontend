@@ -1,5 +1,4 @@
 
-
 .url-list {
   display: flex;
   flex-direction: column;
@@ -51,4 +50,18 @@
 
 .url-card-link:hover {
   text-decoration: underline;
+}
+.url-card-description {
+  font-size: 13px;
+  color: #555;
+  margin-top: 6px;
+  line-height: 1.4;
+  word-break: break-word;
+  max-width: 90%;
+}
+
+.url-card-description::before {
+  
+  font-size: 13px;
+  opacity: 0.7;
 }
